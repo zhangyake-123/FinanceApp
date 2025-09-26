@@ -13,4 +13,10 @@ It allows users to record transactions, categorize them, and view summaries of t
 - **Why is this project of interest to me?**  
   I am interested in this project because personal finance management is a practical skill. Building this application allows me to combine my interest in programming with a useful tool that I can use myself.
 
-An example of text with **bold** and *italic* fonts.  
+## User Stories
+- As a user, I want to be able to **add a transaction** (with amount, category, and type: income or expense) to my ledger.  
+- As a user, I want to be able to **view the list of transactions** in my ledger.  
+- As a user, I want to be able to **calculate and display the total income, total expenses, and overall balance**.  
+- As a user, I want to be able to **delete a transaction** from my ledger if I made a mistake.  
+- As a user, I want to be able to **view my expenses grouped by category** (e.g., Shopping, Food, Entertainment).  
+- As a user, I want to be able to **view summaries of my income and expenses over different time periods** (e.g., weekly, monthly, yearly).  
