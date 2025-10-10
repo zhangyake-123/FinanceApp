@@ -70,7 +70,8 @@ public class Transaction {
 
     // EFFECTS: returns a short text summary of this transaction
     public String toString() {
-        return "[" + this.date + "] "
+        return  "(" + id + ")" 
+                + "[" + this.date + "] "
                 + this.category + " "
                 + this.type + " "
                 + (this.amountInCents / 100) + "."
