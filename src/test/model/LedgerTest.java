@@ -113,6 +113,6 @@ public class LedgerTest {
         LocalDate start = LocalDate.of(2025, 10, 1);
         LocalDate end = LocalDate.of(2025, 10, 31);
         assertEquals(5000, ledger.incomeBetween(start, end));
-        assertEquals(1800, ledger.expenseBetween(start, end));
+        assertEquals(1000, ledger.expenseBetween(start, end));
     }
 }

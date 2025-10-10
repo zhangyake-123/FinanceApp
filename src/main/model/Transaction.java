@@ -19,17 +19,17 @@ public class Transaction {
         this.date = date;
         this.category = category;
         this.type = type;
-        this.note = note;
+        this.note = (note == null ? "" : note);
     }
 
     // EFFECTS: returns true if this transaction is of type INCOME
     public boolean isIncome() {
-        return false;
+        return this.type == TxnType.INCOME;
     }
 
     // EFFECTS: returns true if this transaction is of type EXPENSE
     public boolean isExpense() {
-        return false;
+        return this.type == TxnType.EXPENSE;
     }
 
     // EFFECTS: returns the transaction's unique id
@@ -65,12 +65,17 @@ public class Transaction {
     // MODIFIES: this
     // EFFECTS: sets the note to the new given value
     public void setNote(String newNote) {
-        this.note = newNote;
+        this.note = (newNote == null ? "" : newNote);
     }
 
     // EFFECTS: returns a short text summary of this transaction
     public String toString() {
-        return "Transaction stub";
+        return "[" + this.date + "] "
+                + this.category + " "
+                + this.type + " "
+                + (this.amountInCents / 100) + "."
+                + String.format("%02d", this.amountInCents % 100)
+                + (this.note.isEmpty() ? "" : " (" + this.note + ")");
     }
 
     public enum TxnType { INCOME, EXPENSE }
