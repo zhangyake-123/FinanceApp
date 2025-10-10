@@ -38,7 +38,12 @@ public class LedgerTest {
         assertEquals(2, ledger.getAll().size());
 
         assertFalse(ledger.add(t1));
-        assertEquals(2, ledger.getAll().size());
+        assertEquals(2, ledger.getAll().size()); 
+
+        Ledger emptyLedger = new Ledger();
+        assertEquals(0, emptyLedger.totalIncome());
+        assertEquals(0, emptyLedger.totalExpense());
+        assertEquals(0, emptyLedger.balance());
     }
 
     @Test
@@ -102,7 +107,7 @@ public class LedgerTest {
         assertEquals(1000, totals.get(Transaction.Category.FOOD));
         assertEquals(200, totals.get(Transaction.Category.TRANSPORT));
         assertEquals(800, totals.get(Transaction.Category.SHOPPING));
-        assertFalse(totals.containsKey(Transaction.Category.SALARY));
+        assertFalse(totals.containsKey(Transaction.Category.SALARY)); 
     }
 
     @Test
