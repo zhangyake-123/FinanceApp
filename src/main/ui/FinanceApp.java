@@ -14,8 +14,8 @@ import java.util.UUID;
 
 // A simple console-based UI for the Personal Finance Tracker
 public class FinanceApp {
-    private Scanner in;         // input reader
-    private Ledger ledger;      // model
+    private Scanner in; // input reader
+    private Ledger ledger; // model
 
     // EFFECTS: constructs the console app with a fresh ledger and input scanner
     public FinanceApp() {
@@ -33,29 +33,39 @@ public class FinanceApp {
             String cmd = in.nextLine().trim();
             if (cmd.equalsIgnoreCase("q")) {
                 running = false;
-            } else if (cmd.equals("1")) {
-                doAdd();
-            } else if (cmd.equals("2")) {
-                doListAll();
-            } else if (cmd.equals("3")) {
-                doSummary();
-            } else if (cmd.equals("4")) {
-                doByCategory();
-            } else if (cmd.equals("5")) {
-                doByMonth();
-            } else if (cmd.equals("6")) {
-                doByYear();
-            } else if (cmd.equals("7")) {
-                doDelete();
-            } else if (cmd.equals("8")) {
-                doRangeSummary();
-            } else if (cmd.equals("9")) {
-                doExpenseTotalsByCategory();
             } else {
-                System.out.println("Unknown option.");
+                handleCommand(cmd);
             }
         }
         System.out.println("Goodbye!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: routes a menu command to the corresponding action
+    private void handleCommand(String cmd) {
+        switch (cmd) {
+            case "1": doAdd();
+                break;
+            case "2": doListAll();
+                break;
+            case "3": doSummary();
+                break;
+            case "4": doByCategory();
+                break;
+            case "5": doByMonth();
+                break;
+            case "6": doByYear();
+                break;
+            case "7": doDelete();
+                break;
+            case "8": doRangeSummary();
+                break;
+            case "9": doExpenseTotalsByCategory();
+                break;
+            default:
+                System.out.println("Unknown option.");
+                break;
+        }
     }
 
     // EFFECTS: prints welcome banner
@@ -84,33 +94,61 @@ public class FinanceApp {
     // EFFECTS: prompts user and adds a transaction into the ledger
     private void doAdd() {
         try {
-            System.out.print("Type (I=income, E=expense): ");
-            String t = in.nextLine().trim().toUpperCase();
-            TxnType type = t.startsWith("I") ? TxnType.INCOME : TxnType.EXPENSE;
-
-            System.out.print("Amount (e.g., 12.99): ");
-            String amtStr = in.nextLine().trim();
-            int cents = parseDollarsToCents(amtStr);
-
-            System.out.print("Date (YYYY-MM-DD) (e.g., 2006-01-11): ");
-            LocalDate date = LocalDate.parse(in.nextLine().trim());
-
-            System.out.print("Category (FOOD, SHOPPING, TRANSPORT, RENT, UTILITIES, ENTERTAINMENT, EDUCATION, SALARY, OTHER): ");
-            Category category = Category.valueOf(in.nextLine().trim().toUpperCase());
-
-            System.out.print("Note (optional): ");
-            String note = in.nextLine();
+            TxnType type = promptTxnType();
+            int cents = promptCents();
+            LocalDate date = promptDate();
+            Category category = promptCategory();
+            String note = promptNote();
 
             String id = UUID.randomUUID().toString();
             Transaction tx = new Transaction(id, cents, date, category, type, note);
             boolean added = ledger.add(tx);
-            if (added) {
-                System.out.println("Added with id: " + id);
-            } else {
-                System.out.println("A transaction with the same id already exists. Try again.");
-            }
+            printAddResult(added, id);
         } catch (IllegalArgumentException | DateTimeParseException e) {
             System.out.println("Invalid input: " + e.getMessage());
+        }
+    }
+
+    // EFFECTS: prompts and returns transaction type
+    private TxnType promptTxnType() {
+        System.out.print("Type (I=income, E=expense): ");
+        String t = in.nextLine().trim().toUpperCase();
+        return t.startsWith("I") ? TxnType.INCOME : TxnType.EXPENSE;
+    }
+
+    // EFFECTS: prompts and returns amount in cents
+    private int promptCents() {
+        System.out.print("Amount (e.g., 12.99): ");
+        String amtStr = in.nextLine().trim();
+        return parseDollarsToCents(amtStr);
+    }
+
+    // EFFECTS: prompts and returns date
+    private LocalDate promptDate() {
+        System.out.print("Date (YYYY-MM-DD) (e.g., 2006-01-11): ");
+        return LocalDate.parse(in.nextLine().trim());
+    }
+
+    // EFFECTS: prompts and returns category
+    private Category promptCategory() {
+        System.out.print(
+                "Category (FOOD, SHOPPING, TRANSPORT, RENT, "
+                        + "UTILITIES, ENTERTAINMENT, EDUCATION, SALARY, OTHER): ");
+        return Category.valueOf(in.nextLine().trim().toUpperCase());
+    }
+
+    // EFFECTS: prompts and returns note (may be empty)
+    private String promptNote() {
+        System.out.print("Note (optional): ");
+        return in.nextLine();
+    }
+
+    // EFFECTS: prints add result based on flag
+    private void printAddResult(boolean added, String id) {
+        if (added) {
+            System.out.println("Added with id: " + id);
+        } else {
+            System.out.println("A transaction with the same id already exists. Try again.");
         }
     }
 
@@ -199,7 +237,8 @@ public class FinanceApp {
         }
     }
 
-    // EFFECTS: prompts for start/end dates and prints in-range income/expense totals
+    // EFFECTS: prompts for start/end dates and prints in-range income/expense
+    // totals
     private void doRangeSummary() {
         try {
             System.out.print("Start date (YYYY-MM-DD): ");
@@ -229,11 +268,14 @@ public class FinanceApp {
         }
     }
 
-    // EFFECTS: parses a dollars string (e.g., "12.99", "-3", "5.5") into cents (int)
+    // EFFECTS: parses a dollars string (e.g., "12.99", "-3", "5.5") into cents
+    // (int)
     private int parseDollarsToCents(String amt) {
         String s = amt.trim();
         boolean negative = s.startsWith("-");
-        if (negative) s = s.substring(1);
+        if (negative) {
+            s = s.substring(1);
+        }
 
         String[] parts = s.split("\\.");
         int dollars = Integer.parseInt(parts[0].isEmpty() ? "0" : parts[0]);
