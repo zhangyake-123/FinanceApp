@@ -14,8 +14,8 @@ import java.util.UUID;
 
 // A simple console-based UI for the Personal Finance Tracker
 public class FinanceApp {
-    private Scanner in; // input reader
-    private Ledger ledger; // model
+    private Scanner in;
+    private Ledger ledger;
 
     // EFFECTS: constructs the console app with a fresh ledger and input scanner
     public FinanceApp() {
@@ -281,11 +281,11 @@ public class FinanceApp {
         int dollars = Integer.parseInt(parts[0].isEmpty() ? "0" : parts[0]);
         int cents = 0;
         if (parts.length > 1) {
-            String frac = (parts[1] + "00").substring(0, 2); // pad/truncate to 2 digits
+            String frac = (parts[1] + "00").substring(0, 2);
             cents = Integer.parseInt(frac);
         }
         int total = dollars * 100 + cents;
-        return negative ? -total : total; // negative allowed if you ever want it
+        return negative ? -total : total;
     }
 
     // EFFECTS: converts cents to a printable dollars string (e.g., 1299 -> "12.99")
