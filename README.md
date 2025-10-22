@@ -20,3 +20,5 @@ It allows users to record transactions, categorize them, and view summaries of t
 - As a user, I want to be able to **delete a transaction** from my ledger if I made a mistake.  
 - As a user, I want to be able to **view my expenses grouped by category** (e.g., Shopping, Food, Entertainment).  
 - As a user, I want to be able to **view summaries of my income and expenses over different time periods** (e.g., weekly, monthly, yearly).  
+- As a user, I want to have the option to **save my data** to a file. 
+- As a user, I want to have the option to **load my data** from a file and continue where I left off.

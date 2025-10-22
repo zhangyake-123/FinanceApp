@@ -24,7 +24,7 @@ public class Ledger {
     public boolean add(Transaction t) {
         for (Transaction existing : transactions) {
             if (existing.getId().equals(t.getId())) {
-                return false; // duplicate id
+                return false;
             }
         }
         transactions.add(t);
