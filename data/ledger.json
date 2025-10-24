@@ -1,12 +1,1 @@
-{
-  "transactions": [
-    {
-      "id": "t1",
-      "amountInCents": 1000,
-      "date": "2025-10-01",
-      "category": "FOOD",
-      "type": "EXPENSE",
-      "note": "Lunch"
-    }
-  ]
-}
+{"transactions": []}
