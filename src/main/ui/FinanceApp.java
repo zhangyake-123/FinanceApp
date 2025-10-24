@@ -19,7 +19,7 @@ import java.util.UUID;
 // A simple console-based UI for the Personal Finance Tracker
 public class FinanceApp {
     private Scanner in;
-    private Ledger ledger; 
+    private Ledger ledger;
     private static final String JSON_STORE = "./data/ledger.json";
 
     // EFFECTS: constructs the console app with a fresh ledger and input scanner
@@ -48,43 +48,24 @@ public class FinanceApp {
     // MODIFIES: this
     // EFFECTS: routes a menu command to the corresponding action
     private void handleCommand(String cmd) {
-        switch (cmd) {
-            case "1": 
-                doAdd();
-                break;
-            case "2": 
-                doListAll();
-                break;
-            case "3": 
-                doSummary();
-                break;
-            case "4": 
-                doByCategory();
-                break;
-            case "5": 
-                doByMonth();
-                break;
-            case "6": 
-                doByYear();
-                break;
-            case "7": 
-                doDelete();
-                break;
-            case "8": 
-                doRangeSummary();
-                break;
-            case "9": 
-                doExpenseTotalsByCategory();
-                break; 
-            case "10": 
-                doWrite();
-                break;
-            case "11":
-                doRead();
-                break;
-            default:
-                System.out.println("Unknown option.");
-                break;
+        Map<String, Runnable> actions = Map.ofEntries(
+                Map.entry("1", this::doAdd),
+                Map.entry("2", this::doListAll),
+                Map.entry("3", this::doSummary),
+                Map.entry("4", this::doByCategory),
+                Map.entry("5", this::doByMonth),
+                Map.entry("6", this::doByYear),
+                Map.entry("7", this::doDelete),
+                Map.entry("8", this::doRangeSummary),
+                Map.entry("9", this::doExpenseTotalsByCategory),
+                Map.entry("10", this::doWrite),
+                Map.entry("11", this::doRead));
+
+        Runnable action = actions.get(cmd);
+        if (action != null) {
+            action.run();
+        } else {
+            System.out.println("Unknown option.");
         }
     }
 
@@ -105,7 +86,7 @@ public class FinanceApp {
         System.out.println("6 -> View by year (YYYY)");
         System.out.println("7 -> Delete transaction by id");
         System.out.println("8 -> Range summary (start YYYY-MM-DD, end YYYY-MM-DD)");
-        System.out.println("9 -> Expense totals by category"); 
+        System.out.println("9 -> Expense totals by category");
         System.out.println("10 -> Save ledger to file");
         System.out.println("11 -> Load ledger from file");
         System.out.println("q -> Quit");
@@ -288,7 +269,7 @@ public class FinanceApp {
         for (Map.Entry<Category, Integer> e : totals.entrySet()) {
             System.out.println(" - " + e.getKey() + ": $" + centsToDollars(e.getValue()));
         }
-    } 
+    }
 
     // EFFECTS: saves the current ledger to file
     private void doWrite() {
@@ -301,7 +282,7 @@ public class FinanceApp {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
-    } 
+    }
 
     // MODIFIES: this
     // EFFECTS: loads ledger from file and replaces current ledger

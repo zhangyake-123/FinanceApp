@@ -1,1 +1,8 @@
-{"transactions": []}
+{"transactions": [{
+  "amountInCents": 138000,
+  "date": "2006-11-11",
+  "note": "asdfa",
+  "id": "6dcc0c34-ec09-4afe-9644-e985e0826818",
+  "category": "FOOD",
+  "type": "INCOME"
+}]}

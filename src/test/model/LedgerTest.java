@@ -38,7 +38,7 @@ public class LedgerTest {
         assertEquals(2, ledger.getAll().size());
 
         assertFalse(ledger.add(t1));
-        assertEquals(2, ledger.getAll().size()); 
+        assertEquals(2, ledger.getAll().size());
 
         Ledger emptyLedger = new Ledger();
         assertEquals(0, emptyLedger.totalIncome());
@@ -51,7 +51,7 @@ public class LedgerTest {
         ledger.add(t1);
         ledger.add(t2);
         assertTrue(ledger.removeById("t1"));
-        assertFalse(ledger.removeById("t1")); 
+        assertFalse(ledger.removeById("t1"));
         assertFalse(ledger.removeById("t3"));
     }
 
@@ -93,16 +93,16 @@ public class LedgerTest {
         List<Transaction> october = ledger.byMonth(YearMonth.of(2025, 10));
         assertEquals(2, october.size());
         List<Transaction> year2025 = ledger.byYear(2025);
-        assertEquals(3, year2025.size()); 
+        assertEquals(3, year2025.size());
 
-        Transaction tPast = new Transaction(
-                "tPast",
+        Transaction pastTransaction = new Transaction(
+                "pastTransaction",
                 123,
                 LocalDate.of(2024, 10, 10),
                 Transaction.Category.OTHER,
                 Transaction.TxnType.EXPENSE,
                 "past");
-        ledger.add(tPast);
+        ledger.add(pastTransaction);
 
         List<Transaction> november = ledger.byMonth(YearMonth.of(2025, 11));
         assertEquals(1, november.size());
@@ -115,11 +115,11 @@ public class LedgerTest {
         ledger.add(t3);
         ledger.add(t4);
         Map<Transaction.Category, Integer> totals = ledger.expenseTotalsByCategory();
-        assertEquals(3, totals.size()); 
+        assertEquals(3, totals.size());
         assertEquals(1000, totals.get(Transaction.Category.FOOD));
         assertEquals(200, totals.get(Transaction.Category.TRANSPORT));
         assertEquals(800, totals.get(Transaction.Category.SHOPPING));
-        assertFalse(totals.containsKey(Transaction.Category.SALARY)); 
+        assertFalse(totals.containsKey(Transaction.Category.SALARY));
     }
 
     @Test
@@ -131,10 +131,10 @@ public class LedgerTest {
         LocalDate end = LocalDate.of(2025, 10, 31);
         assertEquals(5000, ledger.incomeBetween(start, end));
         assertEquals(1000, ledger.expenseBetween(start, end));
-    } 
+    }
 
-     @Test
-    void testByMonthAndYear_NoMatches() {
+    @Test
+    void testByMonthAndYearNoMatches() {
         ledger.add(t1);
 
         List<Transaction> none = ledger.byMonth(YearMonth.of(2025, 9));
@@ -145,7 +145,7 @@ public class LedgerTest {
     }
 
     @Test
-    void testIncomeAndExpenseBetween_EdgeCases() {
+    void testIncomeAndExpenseBetweenEdgeCases() {
         ledger.add(t1);
         ledger.add(t2);
 

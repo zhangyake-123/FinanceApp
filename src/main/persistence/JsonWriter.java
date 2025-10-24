@@ -1,4 +1,5 @@
-// Based on the CPSC 210 JsonSerializationDemo pattern; adapted for Ledger/Transaction.
+// Based on the CPSC 210 JsonSerializationDemo pattern; adapted for Ledger/Transaction. 
+
 package persistence;
 
 import model.Ledger;

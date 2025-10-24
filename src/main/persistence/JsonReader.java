@@ -1,4 +1,5 @@
 // Based on the CPSC 210 JsonSerializationDemo pattern; adapted for Ledger/Transaction.
+
 package persistence;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import org.json.JSONObject;
 import model.Ledger;
 import model.Transaction;
 
-public class JsonReader { 
+public class JsonReader {
     private String source;
 
     // MODIFIES: this
@@ -23,7 +24,8 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads ledger from file and returns it; throws IOException on read error
+    // EFFECTS: reads ledger from file and returns it; throws IOException on read
+    // error
     public Ledger read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
@@ -32,7 +34,7 @@ public class JsonReader {
 
     // EFFECTS: reads source file as string and returns it
     private String readFile(String source) throws IOException {
-        StringBuilder contentBuilder = new StringBuilder(); 
+        StringBuilder contentBuilder = new StringBuilder();
 
         try (Stream<String> lines = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
             lines.forEach(s -> contentBuilder.append(s));
@@ -50,10 +52,8 @@ public class JsonReader {
                 String id = o.getString("id");
                 int amount = o.getInt("amountInCents");
                 LocalDate date = LocalDate.parse(o.getString("date"));
-                Transaction.Category cat =
-                        Transaction.Category.valueOf(o.getString("category"));
-                Transaction.TxnType type =
-                        Transaction.TxnType.valueOf(o.getString("type"));
+                Transaction.Category cat = Transaction.Category.valueOf(o.getString("category"));
+                Transaction.TxnType type = Transaction.TxnType.valueOf(o.getString("type"));
                 String note = o.optString("note", "");
 
                 ledger.add(new Transaction(id, amount, date, cat, type, note));
