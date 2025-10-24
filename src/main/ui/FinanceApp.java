@@ -4,7 +4,11 @@ import model.Ledger;
 import model.Transaction;
 import model.Transaction.Category;
 import model.Transaction.TxnType;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
@@ -15,7 +19,8 @@ import java.util.UUID;
 // A simple console-based UI for the Personal Finance Tracker
 public class FinanceApp {
     private Scanner in;
-    private Ledger ledger;
+    private Ledger ledger; 
+    private static final String JSON_STORE = "./data/ledger.json";
 
     // EFFECTS: constructs the console app with a fresh ledger and input scanner
     public FinanceApp() {
@@ -44,23 +49,38 @@ public class FinanceApp {
     // EFFECTS: routes a menu command to the corresponding action
     private void handleCommand(String cmd) {
         switch (cmd) {
-            case "1": doAdd();
+            case "1": 
+                doAdd();
                 break;
-            case "2": doListAll();
+            case "2": 
+                doListAll();
                 break;
-            case "3": doSummary();
+            case "3": 
+                doSummary();
                 break;
-            case "4": doByCategory();
+            case "4": 
+                doByCategory();
                 break;
-            case "5": doByMonth();
+            case "5": 
+                doByMonth();
                 break;
-            case "6": doByYear();
+            case "6": 
+                doByYear();
                 break;
-            case "7": doDelete();
+            case "7": 
+                doDelete();
                 break;
-            case "8": doRangeSummary();
+            case "8": 
+                doRangeSummary();
                 break;
-            case "9": doExpenseTotalsByCategory();
+            case "9": 
+                doExpenseTotalsByCategory();
+                break; 
+            case "10": 
+                doWrite();
+                break;
+            case "11":
+                doRead();
                 break;
             default:
                 System.out.println("Unknown option.");
@@ -85,7 +105,9 @@ public class FinanceApp {
         System.out.println("6 -> View by year (YYYY)");
         System.out.println("7 -> Delete transaction by id");
         System.out.println("8 -> Range summary (start YYYY-MM-DD, end YYYY-MM-DD)");
-        System.out.println("9 -> Expense totals by category");
+        System.out.println("9 -> Expense totals by category"); 
+        System.out.println("10 -> Save ledger to file");
+        System.out.println("11 -> Load ledger from file");
         System.out.println("q -> Quit");
         System.out.print("> ");
     }
@@ -265,6 +287,31 @@ public class FinanceApp {
         System.out.println("Expense totals by category:");
         for (Map.Entry<Category, Integer> e : totals.entrySet()) {
             System.out.println(" - " + e.getKey() + ": $" + centsToDollars(e.getValue()));
+        }
+    } 
+
+    // EFFECTS: saves the current ledger to file
+    private void doWrite() {
+        try {
+            JsonWriter writer = new JsonWriter(JSON_STORE);
+            writer.open();
+            writer.write(ledger);
+            writer.close();
+            System.out.println("Saved ledger to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    } 
+
+    // MODIFIES: this
+    // EFFECTS: loads ledger from file and replaces current ledger
+    private void doRead() {
+        try {
+            JsonReader reader = new JsonReader(JSON_STORE);
+            ledger = reader.read();
+            System.out.println("Loaded ledger from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
