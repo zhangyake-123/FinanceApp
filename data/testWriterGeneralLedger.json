@@ -1,0 +1,18 @@
+{"transactions": [
+  {
+    "amountInCents": 1000,
+    "date": "2025-10-01",
+    "note": "Lunch",
+    "id": "t1",
+    "category": "FOOD",
+    "type": "EXPENSE"
+  },
+  {
+    "amountInCents": 5000,
+    "date": "2025-10-02",
+    "note": "Paycheck",
+    "id": "t2",
+    "category": "SALARY",
+    "type": "INCOME"
+  }
+]}
