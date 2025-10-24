@@ -77,6 +77,17 @@ public class Transaction {
                 + (this.amountInCents / 100) + "."
                 + String.format("%02d", this.amountInCents % 100)
                 + (this.note.isEmpty() ? "" : " (" + this.note + ")");
+    } 
+
+    public org.json.JSONObject toJson() {
+        org.json.JSONObject json = new org.json.JSONObject();
+        json.put("id", this.getId());
+        json.put("amountInCents", this.getAmountInCents());
+        json.put("date", this.getDate().toString()); 
+        json.put("category", this.getCategory().name());
+        json.put("type", this.getType().name());
+        json.put("note", this.getNote());
+        return json;
     }
 
     public enum TxnType { INCOME, EXPENSE }

@@ -145,5 +145,15 @@ public class Ledger {
             }
         }
         return sum;
+    } 
+
+    public org.json.JSONObject toJson() {
+        org.json.JSONObject root = new org.json.JSONObject();
+        org.json.JSONArray arr = new org.json.JSONArray();
+        for (Transaction t : this.getAll()) {
+            arr.put(t.toJson());
+        }
+        root.put("transactions", arr);
+        return root;
     }
 }
