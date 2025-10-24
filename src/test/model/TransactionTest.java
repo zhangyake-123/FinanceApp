@@ -63,5 +63,27 @@ public class TransactionTest {
     void testToString() {
         assertNotNull(incomeTxn.toString());
         assertNotNull(expenseTxn.toString());
+    } 
+
+    @Test
+    void testConstructorHandlesNullNote() {
+        Transaction t = new Transaction("id", 500, LocalDate.of(2025, 10, 3),
+                Transaction.Category.OTHER, Transaction.TxnType.EXPENSE, null);
+        assertEquals("", t.getNote()); 
+    }
+
+    @Test
+    void testSetNoteHandlesNull() {
+        expenseTxn.setNote(null);
+        assertEquals("", expenseTxn.getNote());
+    }
+
+    @Test
+    void testToStringWhenNoteEmpty() {
+        Transaction noNoteTxn = new Transaction("n1", 3000,
+                LocalDate.of(2025, 10, 4),
+                Transaction.Category.OTHER, Transaction.TxnType.EXPENSE, "");
+        String s = noNoteTxn.toString();
+        assertFalse(s.contains(" (")); 
     }
 }

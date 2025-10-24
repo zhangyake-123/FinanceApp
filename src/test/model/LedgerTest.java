@@ -93,7 +93,19 @@ public class LedgerTest {
         List<Transaction> october = ledger.byMonth(YearMonth.of(2025, 10));
         assertEquals(2, october.size());
         List<Transaction> year2025 = ledger.byYear(2025);
-        assertEquals(3, year2025.size());
+        assertEquals(3, year2025.size()); 
+
+        Transaction tPast = new Transaction(
+                "tPast",
+                123,
+                LocalDate.of(2024, 10, 10),
+                Transaction.Category.OTHER,
+                Transaction.TxnType.EXPENSE,
+                "past");
+        ledger.add(tPast);
+
+        List<Transaction> november = ledger.byMonth(YearMonth.of(2025, 11));
+        assertEquals(1, november.size());
     }
 
     @Test
@@ -119,5 +131,31 @@ public class LedgerTest {
         LocalDate end = LocalDate.of(2025, 10, 31);
         assertEquals(5000, ledger.incomeBetween(start, end));
         assertEquals(1000, ledger.expenseBetween(start, end));
+    } 
+
+     @Test
+    void testByMonthAndYear_NoMatches() {
+        ledger.add(t1);
+
+        List<Transaction> none = ledger.byMonth(YearMonth.of(2025, 9));
+        assertTrue(none.isEmpty());
+
+        List<Transaction> noneYear = ledger.byYear(2024);
+        assertTrue(noneYear.isEmpty());
+    }
+
+    @Test
+    void testIncomeAndExpenseBetween_EdgeCases() {
+        ledger.add(t1);
+        ledger.add(t2);
+
+        LocalDate date = LocalDate.of(2025, 10, 1);
+        assertEquals(0, ledger.incomeBetween(date, date));
+        assertEquals(1000, ledger.expenseBetween(date, date));
+
+        LocalDate start = LocalDate.of(2025, 11, 1);
+        LocalDate end = LocalDate.of(2025, 10, 1);
+        assertEquals(0, ledger.incomeBetween(start, end));
+        assertEquals(0, ledger.expenseBetween(start, end));
     }
 }
