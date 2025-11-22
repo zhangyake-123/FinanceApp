@@ -22,3 +22,35 @@ It allows users to record transactions, categorize them, and view summaries of t
 - As a user, I want to be able to **view summaries of my income and expenses over different time periods** (e.g., weekly, monthly, yearly).  
 - As a user, I want to optionally **save the entire ledger (all transactions)** to a JSON file from the menu so I can keep my data.
 - As a user, I want to optionally **load my ledger** from a JSON file and resume exactly where I left off last time.
+
+# Instructions for End User
+
+- You can view the panel that displays the Xs that have already been added to the Y by **running the `ui.Main` class**.  
+  When the window opens, the lower part of the main GUI shows a table inside a panel titled **"Transactions"**.  
+  This table displays all the transactions (Xs) that have already been added to the ledger (Y).
+
+- You can generate the first required action related to the user story **"adding multiple Xs to a Y"** by  
+  **clicking the button labelled "Add transaction"** in the top Actions panel.  
+  A sequence of dialog windows will appear, prompting you to enter:
+  1. Type (I = income, E = expense)  
+  2. Amount (e.g., `12.99`)  
+  3. Date (`YYYY-MM-DD`)  
+  4. Category (FOOD, SHOPPING, TRANSPORT, etc.)  
+  5. Optional note  
+  After you finish all steps with valid input, the new transaction is added to the ledger and appears in the Transactions table.
+
+- You can generate the second required action related to the user story **"adding multiple Xs to a Y"** by  
+  **clicking the button labelled "View by category"** in the top Actions panel.  
+  Enter a category name (e.g., `FOOD`, `SHOPPING`, `RENT`) in the dialog.  
+  The Transactions table will then update to display only the subset of transactions (Xs) in the ledger (Y) that belong to that category.
+
+- You can locate my visual component by **clicking the button labelled "Show charts"** in the top Actions panel.  
+  This opens a new window containing two pie charts:
+  1. A pie chart showing the share of total amount by **category** (each category shown in a different colour with labels and percentages).  
+  2. A pie chart showing the share of total amount by **INCOME vs EXPENSE**.  
+
+- You can save the state of my application by **clicking the button labelled "Save"** in the top Actions panel.  
+  This writes the current ledger (all transactions in the table) to the JSON file located at `./data/ledger.json`, and a dialog will confirm that the save was successful (or show an error if it fails).
+
+- You can reload the state of my application by **clicking the button labelled "Load"** in the top Actions panel.  
+  This reads the previously saved ledger from `./data/ledger.json`, replaces the current in-memory ledger, and updates the Transactions table so you can continue from where you left off. A dialog will confirm that the load was successful (or show an error if it fails).
