@@ -1,8 +1,34 @@
-{"transactions": [{
-  "amountInCents": 138000,
-  "date": "2006-11-11",
-  "note": "asdfa",
-  "id": "6dcc0c34-ec09-4afe-9644-e985e0826818",
-  "category": "FOOD",
-  "type": "INCOME"
-}]}
+{"transactions": [
+  {
+    "amountInCents": 138000,
+    "date": "2006-11-11",
+    "note": "asdfa",
+    "id": "6dcc0c34-ec09-4afe-9644-e985e0826818",
+    "category": "FOOD",
+    "type": "INCOME"
+  },
+  {
+    "amountInCents": 1200,
+    "date": "2025-11-11",
+    "note": "adfefd",
+    "id": "ff94739b-747d-4f47-838c-29a06812047c",
+    "category": "FOOD",
+    "type": "INCOME"
+  },
+  {
+    "amountInCents": 12400,
+    "date": "3443-11-24",
+    "note": "aohusvdna",
+    "id": "4f195662-5248-45e0-adcb-5afaad039113",
+    "category": "SHOPPING",
+    "type": "EXPENSE"
+  },
+  {
+    "amountInCents": 333300,
+    "date": "2006-11-11",
+    "note": "afsva",
+    "id": "7279f55c-4a71-4144-978f-6dfeba802966",
+    "category": "FOOD",
+    "type": "INCOME"
+  }
+]}
