@@ -68,3 +68,9 @@ Fri Nov 28 02:09:22 PST 2025
 Transaction removed: id=ad9ecf6c-f4bc-442e-bccd-a2c0506894e6, amountInCents=1399, category=FOOD, date=2013-03-14  
 Fri Nov 28 02:09:45 PST 2025  
 Transaction added: id=52eb9d21-18d6-43a6-b69e-42d96bf67b53, type=INCOME, category=SHOPPING, amountInCents=6700, date=2012-01-23  
+
+## Phase 4: Task 3  
+
+After looking at my UML diagram, I noticed a few things I would refactor if I had more time. One issue is that both FinanceApp (the console version) and FinanceAppGUI (the GUI version) each keep their own Ledger. This means the model is duplicated in two places, which can make the program harder to maintain. If I were to improve the design, I would introduce a small controller class that holds one shared Ledger, and then let both UIs talk to that controller instead of directly working with the model. This would make the structure cleaner and reduce repeated logic.
+
+I also realized that FinanceAppGUI is doing a lot of different jobs at the same time: building the UI, checking inputs, updating the table, drawing charts, and saving/loading files. If I had more time, I would split some of these responsibilities into separate helper classes so the GUI would be smaller and easier to read. These changes would not add new features, but they would make the design clearer and the code easier to maintain in the future.
