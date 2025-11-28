@@ -30,5 +30,13 @@
     "id": "7279f55c-4a71-4144-978f-6dfeba802966",
     "category": "FOOD",
     "type": "INCOME"
+  },
+  {
+    "amountInCents": 13000,
+    "date": "2022-05-15",
+    "note": "none",
+    "id": "930b2231-ccc8-499b-b63c-4bdcc38cf62a",
+    "category": "TRANSPORT",
+    "type": "EXPENSE"
   }
 ]}

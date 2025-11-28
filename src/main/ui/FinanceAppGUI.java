@@ -21,6 +21,9 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.HashMap;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 // Swing GUI for Personal Finance Tracker.
 public class FinanceAppGUI extends JFrame {
 
@@ -38,9 +41,16 @@ public class FinanceAppGUI extends JFrame {
         ledger = new Ledger();
 
         setTitle("Personal Finance Tracker");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setMinimumSize(new Dimension(1000, 600));
         setLocationRelativeTo(null);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                exitApplication();
+            }
+        });
 
         getContentPane().setLayout(new BorderLayout());
 
@@ -90,7 +100,7 @@ public class FinanceAppGUI extends JFrame {
     // MODIFIES: panel
     // EFFECTS: adds quit button to the panel
     private void addQuitButton(JPanel panel) {
-        panel.add(makeButton("Quit", this::dispose));
+        panel.add(makeButton("Quit", this::exitApplication));
     }
 
     // REQUIRES: action not null
@@ -730,7 +740,8 @@ public class FinanceAppGUI extends JFrame {
 
         // REQUIRES: g2 not null
         // MODIFIES: g2
-        // EFFECTS: 根据当前窗口大小和 ledger 内容绘制两张饼图
+        // EFFECTS: Draw two pie charts based on the current window size and ledger
+        // content
         private void drawCharts(Graphics2D g2) {
             int w = getWidth();
             int h = getHeight();
@@ -972,5 +983,14 @@ public class FinanceAppGUI extends JFrame {
             g2.drawLine(rx, ry, lx, ly);
             g2.drawString("EXPENSE " + String.format("%.1f%%", frac * 100), lx, ly);
         }
+    }
+
+    // REQUIRES: none
+    // MODIFIES: this
+    // EFFECTS: prints event log to console and closes the window
+    private void exitApplication() {
+        System.out.println("Event log:");
+        LogPrinter.printLog();
+        dispose();
     }
 }

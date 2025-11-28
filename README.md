@@ -53,4 +53,18 @@ It allows users to record transactions, categorize them, and view summaries of t
   This writes the current ledger (all transactions in the table) to the JSON file located at `./data/ledger.json`, and a dialog will confirm that the save was successful (or show an error if it fails).
 
 - You can reload the state of my application by **clicking the button labelled "Load"** in the top Actions panel.  
-  This reads the previously saved ledger from `./data/ledger.json`, replaces the current in-memory ledger, and updates the Transactions table so you can continue from where you left off. A dialog will confirm that the load was successful (or show an error if it fails).
+  This reads the previously saved ledger from `./data/ledger.json`, replaces the current in-memory ledger, and updates the Transactions table so you can continue from where you left off. A dialog will confirm that the load was successful (or show an error if it fails). 
+
+## Phase 4: Task 2 
+
+Below is a sample of the events that were logged in one run of the application:
+
+Event log:  
+Fri Nov 28 02:08:17 PST 2025  
+Transaction added: id=ad9ecf6c-f4bc-442e-bccd-a2c0506894e6, type=INCOME, category=FOOD, amountInCents=1399, date=2013-03-14  
+Fri Nov 28 02:08:32 PST 2025  
+Transaction added: id=a6da9bab-3685-41a8-8095-22d9e5dd9c5a, type=EXPENSE, category=OTHER, amountInCents=4500, date=2006-11-11  
+Fri Nov 28 02:09:22 PST 2025  
+Transaction removed: id=ad9ecf6c-f4bc-442e-bccd-a2c0506894e6, amountInCents=1399, category=FOOD, date=2013-03-14  
+Fri Nov 28 02:09:45 PST 2025  
+Transaction added: id=52eb9d21-18d6-43a6-b69e-42d96bf67b53, type=INCOME, category=SHOPPING, amountInCents=6700, date=2012-01-23  

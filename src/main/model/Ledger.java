@@ -19,28 +19,49 @@ public class Ledger {
 
     // MODIFIES: this
     // EFFECTS: adds the given transaction to the ledger
-    //          returns true if added, false if a transaction
-    //          with the same id already exists
+    // returns true if added, false if a transaction
+    // with the same id already exists
     public boolean add(Transaction t) {
         for (Transaction existing : transactions) {
             if (existing.getId().equals(t.getId())) {
+                EventLog.getInstance().logEvent(
+                        new Event("Attempted to add transaction with duplicate id: " + t.getId()));
                 return false;
             }
         }
         transactions.add(t);
+
+        EventLog.getInstance().logEvent(
+                new Event("Transaction added: id=" + t.getId()
+                        + ", type=" + t.getType()
+                        + ", category=" + t.getCategory()
+                        + ", amountInCents=" + t.getAmountInCents()
+                        + ", date=" + t.getDate()));
+
         return true;
     }
 
     // MODIFIES: this
     // EFFECTS: removes the transaction with the given id
-    //          returns true if removed, false if not found
+    // returns true if removed, false if not found
     public boolean removeById(String id) {
         for (int i = 0; i < transactions.size(); i++) {
-            if (transactions.get(i).getId().equals(id)) {
+            Transaction t = transactions.get(i);
+            if (t.getId().equals(id)) {
                 transactions.remove(i);
+
+                EventLog.getInstance().logEvent(
+                        new Event("Transaction removed: id=" + id
+                                + ", amountInCents=" + t.getAmountInCents()
+                                + ", category=" + t.getCategory()
+                                + ", date=" + t.getDate()));
+
                 return true;
             }
         }
+
+        EventLog.getInstance().logEvent(
+                new Event("Attempted to remove non-existing transaction: id=" + id));
         return false;
     }
 
@@ -145,7 +166,7 @@ public class Ledger {
             }
         }
         return sum;
-    } 
+    }
 
     public org.json.JSONObject toJson() {
         org.json.JSONObject root = new org.json.JSONObject();
