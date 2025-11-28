@@ -41,7 +41,11 @@ public class FinanceApp {
             } else {
                 handleCommand(cmd);
             }
-        }
+        } 
+
+        System.out.println("Event log:");
+        LogPrinter.printLog();
+
         System.out.println("Goodbye!");
     }
 
