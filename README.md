@@ -1,76 +1,174 @@
-# Personal Finance Tracker
+# FinanceApp — Personal Finance Tracker (Java Desktop)
 
-## Introduction
-This project is a **Personal Finance Tracker**, a desktop Java application that helps users keep track of their expenses and incomes.  
-It allows users to record transactions, categorize them, and view summaries of their financial activity.
+FinanceApp is a Java desktop application for tracking personal income and expenses.  
+It allows users to record transactions, organize them by category, view financial summaries, and visualize spending patterns using charts.
 
-- **What will the application do?**  
-  The application will let users add transactions, view a list of past transactions, and calculate summaries such as total income, expenses, and balance.
+This project demonstrates object-oriented design, GUI development, JSON data persistence, and event logging in Java.
 
-- **Who will use it?**  
-  This application will be useful for students and individuals who want a simple way to track their daily finances.
+---
 
-- **Why is this project of interest to me?**  
-  I am interested in this project because personal finance management is a practical skill. Building this application allows me to combine my interest in programming with a useful tool that I can use myself.
+# Features
 
-## User Stories
-- As a user, I want to be able to **add a transaction** (with amount, category, and type: income or expense) to my ledger.  
-- As a user, I want to be able to **view the list of transactions** in my ledger.  
-- As a user, I want to be able to **calculate and display the total income, total expenses, and overall balance**.  
-- As a user, I want to be able to **delete a transaction** from my ledger if I made a mistake.  
-- As a user, I want to be able to **view my expenses grouped by category** (e.g., Shopping, Food, Entertainment).  
-- As a user, I want to be able to **view summaries of my income and expenses over different time periods** (e.g., weekly, monthly, yearly).  
-- As a user, I want to optionally **save the entire ledger (all transactions)** to a JSON file from the menu so I can keep my data.
-- As a user, I want to optionally **load my ledger** from a JSON file and resume exactly where I left off last time.
+- Add income or expense transactions with amount, date, category, and optional notes
+- View and manage a list of recorded transactions
+- Delete transactions if they were entered incorrectly
+- Filter transactions by category
+- Calculate financial summaries including:
+  - total income
+  - total expenses
+  - current balance
+- Visualize financial data using pie charts
+- Save and load transaction data using JSON files
+- Log important application events during runtime
 
-# Instructions for End User
+---
 
-- You can view the panel that displays the Xs that have already been added to the Y by **running the `ui.Main` class**.  
-  When the window opens, the lower part of the main GUI shows a table inside a panel titled **"Transactions"**.  
-  This table displays all the transactions (Xs) that have already been added to the ledger (Y).
+# Technologies Used
 
-- You can generate the first required action related to the user story **"adding multiple Xs to a Y"** by  
-  **clicking the button labelled "Add transaction"** in the top Actions panel.  
-  A sequence of dialog windows will appear, prompting you to enter:
-  1. Type (I = income, E = expense)  
-  2. Amount (e.g., `12.99`)  
-  3. Date (`YYYY-MM-DD`)  
-  4. Category (FOOD, SHOPPING, TRANSPORT, etc.)  
-  5. Optional note  
-  After you finish all steps with valid input, the new transaction is added to the ledger and appears in the Transactions table.
+- **Java**
+- **Swing GUI**
+- **JSON persistence**
+- **Object-Oriented Design**
+- **Event Logging System**
 
-- You can generate the second required action related to the user story **"adding multiple Xs to a Y"** by  
-  **clicking the button labelled "View by category"** in the top Actions panel.  
-  Enter a category name (e.g., `FOOD`, `SHOPPING`, `RENT`) in the dialog.  
-  The Transactions table will then update to display only the subset of transactions (Xs) in the ledger (Y) that belong to that category.
+---
 
-- You can locate my visual component by **clicking the button labelled "Show charts"** in the top Actions panel.  
-  This opens a new window containing two pie charts:
-  1. A pie chart showing the share of total amount by **category** (each category shown in a different colour with labels and percentages).  
-  2. A pie chart showing the share of total amount by **INCOME vs EXPENSE**.  
+# Getting Started
 
-- You can save the state of my application by **clicking the button labelled "Save"** in the top Actions panel.  
-  This writes the current ledger (all transactions in the table) to the JSON file located at `./data/ledger.json`, and a dialog will confirm that the save was successful (or show an error if it fails).
+## Prerequisites
 
-- You can reload the state of my application by **clicking the button labelled "Load"** in the top Actions panel.  
-  This reads the previously saved ledger from `./data/ledger.json`, replaces the current in-memory ledger, and updates the Transactions table so you can continue from where you left off. A dialog will confirm that the load was successful (or show an error if it fails). 
+- Java 11 or newer
+- An IDE such as IntelliJ IDEA or VS Code with Java support
 
-## Phase 4: Task 2 
+## Running the Application
 
-Below is a sample of the events that were logged in one run of the application:
+1. Clone the repository
 
-Event log:  
-Fri Nov 28 02:08:17 PST 2025  
-Transaction added: id=ad9ecf6c-f4bc-442e-bccd-a2c0506894e6, type=INCOME, category=FOOD, amountInCents=1399, date=2013-03-14  
-Fri Nov 28 02:08:32 PST 2025  
-Transaction added: id=a6da9bab-3685-41a8-8095-22d9e5dd9c5a, type=EXPENSE, category=OTHER, amountInCents=4500, date=2006-11-11  
-Fri Nov 28 02:09:22 PST 2025  
-Transaction removed: id=ad9ecf6c-f4bc-442e-bccd-a2c0506894e6, amountInCents=1399, category=FOOD, date=2013-03-14  
-Fri Nov 28 02:09:45 PST 2025  
-Transaction added: id=52eb9d21-18d6-43a6-b69e-42d96bf67b53, type=INCOME, category=SHOPPING, amountInCents=6700, date=2012-01-23  
+```bash
+git clone <repository-url>
+```
 
-## Phase 4: Task 3  
+2. Open the project in your IDE
 
-After looking at my UML diagram, I noticed a few things I would refactor if I had more time. One issue is that both FinanceApp (the console version) and FinanceAppGUI (the GUI version) each keep their own Ledger. This means the model is duplicated in two places, which can make the program harder to maintain. If I were to improve the design, I would introduce a small controller class that holds one shared Ledger, and then let both UIs talk to that controller instead of directly working with the model. This would make the structure cleaner and reduce repeated logic.
+3. Run the main class
 
-I also realized that FinanceAppGUI is doing a lot of different jobs at the same time: building the UI, checking inputs, updating the table, drawing charts, and saving/loading files. If I had more time, I would split some of these responsibilities into separate helper classes so the GUI would be smaller and easier to read. These changes would not add new features, but they would make the design clearer and the code easier to maintain in the future.
+```
+ui.Main
+```
+
+When the application launches, the main window will display a **Transactions panel** that shows all recorded transactions.
+
+---
+
+# How to Use
+
+## Add a Transaction
+
+Click **Add transaction** in the Actions panel and follow the prompts:
+
+1. Enter the transaction type  
+   - `I` for income  
+   - `E` for expense
+
+2. Enter the amount (example: `12.99`)
+
+3. Enter the date in format
+
+```
+YYYY-MM-DD
+```
+
+4. Enter a category (example: FOOD, SHOPPING, TRANSPORT)
+
+5. Optionally enter a note
+
+After completing these steps, the transaction will be added to the ledger and displayed in the transactions table.
+
+---
+
+## View Transactions by Category
+
+Click **View by category** and enter a category name such as:
+
+```
+FOOD
+SHOPPING
+RENT
+```
+
+The transactions table will update to display only transactions in that category.
+
+---
+
+## View Charts
+
+Click **Show charts** to open a new window containing two pie charts:
+
+1. A chart showing the distribution of transaction amounts by category
+2. A chart comparing **income vs expense**
+
+These charts provide a quick overview of financial activity.
+
+---
+
+## Save Data
+
+Click **Save** in the Actions panel.
+
+The application will save all transactions to the file:
+
+```
+./data/ledger.json
+```
+
+A confirmation dialog will appear when saving is successful.
+
+---
+
+## Load Data
+
+Click **Load** to restore previously saved data.
+
+The application will read the ledger from:
+
+```
+./data/ledger.json
+```
+
+The transactions table will update so you can continue where you left off.
+
+---
+
+# Example Event Log
+
+The application records important actions during execution.
+
+Example log output:
+
+```
+Transaction added: id=ad9ecf6c-f4bc-442e-bccd-a2c0506894e6, type=INCOME, category=FOOD, amountInCents=1399, date=2013-03-14
+
+Transaction added: id=a6da9bab-3685-41a8-8095-22d9e5dd9c5a, type=EXPENSE, category=OTHER, amountInCents=4500, date=2006-11-11
+
+Transaction removed: id=ad9ecf6c-f4bc-442e-bccd-a2c0506894e6, amountInCents=1399, category=FOOD, date=2013-03-14
+```
+
+---
+
+# Future Improvements
+
+If more development time were available, the following improvements could be made:
+
+- Introduce a controller layer so multiple user interfaces can share a single Ledger instance
+- Separate GUI responsibilities (input validation, table updates, chart rendering) into helper classes
+- Add more advanced financial analytics such as weekly or monthly spending summaries
+- Improve the overall UI layout and interaction flow
+
+These changes would make the architecture cleaner and improve maintainability without changing the core functionality.
+
+---
+
+# Project Motivation
+
+Personal finance management is an important practical skill.  
+This project combines software development with a useful real-world application that helps users better understand and manage their spending habits.
